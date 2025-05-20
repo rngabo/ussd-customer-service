@@ -1,3 +1,10 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+
+// Accept JSON and URL-encoded bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 // 1. Add Better Error Handling and Logging to server.js
 
 // Add these at the top of your server.js file after the existing imports
@@ -211,3 +218,5 @@ app.get('/api/test-at-connection', async (req, res) => {
     });
   }
 });
+
+
