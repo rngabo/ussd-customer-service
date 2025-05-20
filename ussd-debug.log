@@ -1,0 +1,192 @@
+[2025-05-20T13:33:00.366Z] USSD Request Received: {
+  "sessionId": "SIM1747747980348",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:33:00.366Z] Processing menu: {
+  "level": 0,
+  "textArray": []
+}
+[2025-05-20T13:33:00.367Z] USSD Error: {
+  "error": "sessions is not defined",
+  "stack": "ReferenceError: sessions is not defined\n    at /home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/server.js:80:5\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)\n    at next (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/route.js:119:3)\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)\n    at /home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:280:10)\n    at urlencodedParser (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/body-parser/lib/types/urlencoded.js:85:7)\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)"
+}
+[2025-05-20T13:33:20.537Z] USSD Request Received: {
+  "sessionId": "SIM1747748000532",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:33:20.538Z] Processing menu: {
+  "level": 0,
+  "textArray": []
+}
+[2025-05-20T13:33:20.538Z] USSD Error: {
+  "error": "sessions is not defined",
+  "stack": "ReferenceError: sessions is not defined\n    at /home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/server.js:80:5\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)\n    at next (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/route.js:119:3)\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)\n    at /home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:280:10)\n    at urlencodedParser (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/body-parser/lib/types/urlencoded.js:85:7)\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)"
+}
+[2025-05-20T13:34:32.083Z] USSD Request Received: {
+  "sessionId": "SIM1747748072076",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:34:32.084Z] Processing menu: {
+  "level": 0,
+  "textArray": []
+}
+[2025-05-20T13:34:32.084Z] USSD Response: {
+  "response": "CON Welcome to Our Customer Service\n1. Account Issues\n2. Product Information\n3. Report a Problem\n4. Talk to an Agent"
+}
+[2025-05-20T13:34:35.769Z] USSD Request Received: {
+  "sessionId": "SIM1747748072076",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "1"
+}
+[2025-05-20T13:34:35.770Z] Processing menu: {
+  "level": 1,
+  "textArray": [
+    "1"
+  ]
+}
+[2025-05-20T13:34:35.770Z] USSD Error: {
+  "error": "processLevelOne is not defined",
+  "stack": "ReferenceError: processLevelOne is not defined\n    at /home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/server.js:68:11\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)\n    at next (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/route.js:119:3)\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)\n    at /home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/index.js:280:10)\n    at urlencodedParser (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/body-parser/lib/types/urlencoded.js:85:7)\n    at Layer.handle [as handle_request] (/home/richard/APPS/BUSINESS/USSD-CUSTOMER-SERVICE/node_modules/express/lib/router/layer.js:95:5)"
+}
+[2025-05-20T13:51:20.242Z] USSD Request Received: {
+  "sessionId": "SIM1747749080214",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:51:20.242Z] USSD Response: {
+  "response": "CON Enter your access password:"
+}
+[2025-05-20T13:51:29.320Z] USSD Request Received: {
+  "sessionId": "SIM1747749080214",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250"
+}
+[2025-05-20T13:51:29.320Z] USSD Response: {
+  "response": "CON Welcome! What would you like to pay for?\n1. Buy Airtime & Bundles\n2. Electricity\n3. Bank Services\n4. MoKash"
+}
+[2025-05-20T13:51:37.721Z] USSD Request Received: {
+  "sessionId": "SIM1747749080214",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250*3"
+}
+[2025-05-20T13:51:37.721Z] USSD Response: {
+  "response": "CON You selected: Bank Services\nHow was the service?\n1. Excellent\n2. Good\n3. Average\n4. Poor"
+}
+[2025-05-20T13:51:58.829Z] USSD Request Received: {
+  "sessionId": "SIM1747749080214",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250*3*3"
+}
+[2025-05-20T13:51:58.829Z] USSD Response: {
+  "response": "END Thank you! You rated the service as: Average."
+}
+[2025-05-20T13:56:55.388Z] USSD Request Received: {
+  "sessionId": "SIM1747749415385",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:56:55.388Z] USSD Response: {
+  "response": "CON Enter your access password:"
+}
+[2025-05-20T13:57:01.430Z] USSD Request Received: {
+  "sessionId": "SIM1747749415385",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250"
+}
+[2025-05-20T13:57:01.430Z] USSD Response: {
+  "response": "CON Welcome! What would you like to pay for?\n1. Buy Airtime & Bundles\n2. Electricity\n3. Bank Services\n4. MoKash"
+}
+[2025-05-20T13:57:17.738Z] USSD Request Received: {
+  "sessionId": "SIM1747749437733",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:57:17.739Z] USSD Response: {
+  "response": "CON Enter your access password:"
+}
+[2025-05-20T13:57:25.431Z] USSD Request Received: {
+  "sessionId": "SIM1747749437733",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250"
+}
+[2025-05-20T13:57:25.432Z] USSD Response: {
+  "response": "CON Welcome! What would you like to pay for?\n1. Buy Airtime & Bundles\n2. Electricity\n3. Bank Services\n4. MoKash"
+}
+[2025-05-20T13:58:07.687Z] USSD Request Received: {
+  "sessionId": "SIM1747749487682",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:58:07.688Z] USSD Response: {
+  "response": "CON Enter your access password:"
+}
+[2025-05-20T13:58:15.526Z] USSD Request Received: {
+  "sessionId": "SIM1747749487682",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250"
+}
+[2025-05-20T13:58:15.526Z] USSD Response: {
+  "response": "CON Welcome! What would you like to pay for?\n1. Buy Airtime & Bundles\n2. Electricity\n3. Bank Services\n4. MoKash"
+}
+[2025-05-20T13:58:33.136Z] USSD Request Received: {
+  "sessionId": "SIM1747749513132",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:58:33.136Z] USSD Response: {
+  "response": "CON Enter your access password:"
+}
+[2025-05-20T13:58:37.277Z] USSD Request Received: {
+  "sessionId": "SIM1747749513132",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250"
+}
+[2025-05-20T13:58:37.278Z] USSD Response: {
+  "response": "CON Welcome! What would you like to pay for?\n1. Buy Airtime & Bundles\n2. Electricity\n3. Bank Services\n4. MoKash"
+}
+[2025-05-20T13:58:49.160Z] USSD Request Received: {
+  "sessionId": "SIM1747749529142",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": ""
+}
+[2025-05-20T13:58:49.161Z] USSD Response: {
+  "response": "CON Enter your access password:"
+}
+[2025-05-20T13:58:53.474Z] USSD Request Received: {
+  "sessionId": "SIM1747749529142",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250"
+}
+[2025-05-20T13:58:53.474Z] USSD Response: {
+  "response": "CON Welcome! What would you like to pay for?\n1. Paid - Simba Code: 3020\n2. Paid - Simba Code: 6398\n3. Paid - Hospital Code: 1256\n4. Paid - Hotel 8796"
+}
+[2025-05-20T14:04:31.304Z] USSD Request Received: {
+  "sessionId": "SIM1747749529142",
+  "serviceCode": "*384*250250#",
+  "phoneNumber": "+254700000000",
+  "text": "250250250*3"
+}
+[2025-05-20T14:04:31.304Z] USSD Response: {
+  "response": "CON You selected: Paid - Hospital Code: 1256\nHow was the service?\n1. Excellent\n2. Good\n3. Average\n4. Poor"
+}

@@ -3,223 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <title>USSD Simulator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      background: #f4f6fa;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Segoe UI', Arial, sans-serif;
+    body { background: #f5f6fa; margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .ussd-container {
+      background: #111; color: #fff; border-radius: 24px;
+      max-width: 320px; width: 98vw; min-height: 520px; box-shadow: 0 4px 28px #0003;
+      padding: 24px 16px; margin: 24px auto; display: flex; flex-direction: column; align-items: center;
     }
-    .phone {
-      background: #222;
-      border-radius: 36px;
-      box-shadow: 0 6px 30px rgba(0,0,0,0.18);
-      width: 100%;
-      max-width: 370px;
-      min-width: 300px;
-      padding: 16px 12px 32px 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .ussd-header {
+      font-size: 1.3rem; letter-spacing: 1px; margin-bottom: 8px; font-weight: 700; color: #feea45;
     }
-    .screen {
-      background: #fff;
-      border-radius: 22px;
-      width: 100%;
-      padding: 8px 0 0 0;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      margin-bottom: 16px;
+    .ussd-screen {
+      width: 100%; min-height: 120px; background: #232323; border-radius: 10px; padding: 18px 10px;
+      font-size: 1.03rem; margin-bottom: 20px; white-space: pre-wrap; word-break: break-word; box-sizing: border-box;
+      font-family: monospace, 'Consolas', 'Menlo', 'Courier New', monospace;
     }
-    .topbar {
-      background: #282828;
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 18px 18px 0 0;
-      font-size: 14px;
-      letter-spacing: 0.04em;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .ussd-input-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 18px 18px 0 18px;
-    }
-    .ussd-input {
-      flex: 1;
-      border: none;
-      border-radius: 10px;
-      padding: 6px 12px;
-      font-size: 18px;
-      background: #f6f6fa;
-      color: #1a1a1a;
-      outline: none;
-    }
-    .call-btn {
-      background: #32c671;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      color: #fff;
-      font-size: 21px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .call-btn:active { background: #279e5c; }
-    .ussd-display {
-      font-family: monospace;
-      font-size: 1rem;
-      background: #222;
-      color: #fff;
-      border-radius: 8px;
-      margin: 18px;
-      padding: 18px 14px;
-      min-height: 100px;
-      white-space: pre-line;
-    }
-    .keypad {
-      width: 95%;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .key {
-      background: #292929;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      height: 48px;
-      width: 48px;
-      font-size: 1.18em;
-      cursor: pointer;
-      transition: background 0.15s;
-      outline: none;
-    }
-    .key:active { background: #32c671; color: #fff; }
+    .ussd-input-row { width: 100%; display: flex; gap: 8px; margin-bottom: 10px; }
+    .ussd-input { flex: 1; padding: 7px; font-size: 1.1rem; border-radius: 6px; border: none; outline: none; background: #292929; color: #fff;}
+    .ussd-btn { background: #09d654; color: #fff; border: none; border-radius: 7px; padding: 8px 0; font-size: 1.1rem; cursor: pointer; flex: 0.4; }
+    .ussd-btn:active { background: #13a145; }
+    .ussd-footer { margin-top: 18px; color: #bbb; font-size: 0.95rem; }
     @media (max-width: 500px) {
-      .phone { max-width: 99vw; min-width: unset; }
+      .ussd-container { min-height: 98vh; border-radius: 0; box-shadow: none; }
+      .ussd-screen { min-height: 110px; }
     }
   </style>
 </head>
 <body>
-  <div class="phone">
-    <div class="screen">
-      <div class="topbar">
-        Africa's Talking
-        <span style="font-size:10px;color:#b5e37b;">●●●●</span>
-      </div>
-      <div class="ussd-input-row">
-        <input type="text" class="ussd-input" id="ussdCode" value="*384*250250#" maxlength="20" />
-        <button class="call-btn" id="callBtn">&#128222;</button>
-      </div>
-      <div class="ussd-display" id="ussdDisplay">
-        Enter your USSD code and press Call.
-      </div>
+  <div class="ussd-container">
+    <div class="ussd-header">Africa's Talking</div>
+    <div class="ussd-screen" id="ussdScreen">Enter your USSD code and press Call.</div>
+    <div class="ussd-input-row">
+      <input type="text" id="ussdCode" class="ussd-input" placeholder="*384*250250#" value="*384*250250#">
+      <button class="ussd-btn" id="callBtn">&#x260E;</button>
     </div>
-    <div class="keypad" id="keypad" style="pointer-events:none;opacity:.5;">
-      <!-- Keys will be generated by JS -->
+    <div class="ussd-input-row" style="margin-bottom:0;">
+      <input type="text" id="ussdReply" class="ussd-input" placeholder="Type reply here..." autocomplete="off">
+      <button class="ussd-btn" id="sendBtn">Send</button>
+    </div>
+    <div class="ussd-footer">
+      <span style="font-size:0.98em">USSD Simulator | <b>AT Style</b></span>
     </div>
   </div>
+  <script>
+    let sessionId = null, phoneNumber = "+254700000000", serviceCode = "*384*250250#", ussdText = "";
+    let sessionActive = false;
 
-<script>
-let sessionId = null;
-let codeActive = false;
-let lastText = "";
+    const ussdScreen = document.getElementById('ussdScreen');
+    const ussdCodeInput = document.getElementById('ussdCode');
+    const ussdReplyInput = document.getElementById('ussdReply');
+    const callBtn = document.getElementById('callBtn');
+    const sendBtn = document.getElementById('sendBtn');
 
-const KEYS = [
-  "1","2","3",
-  "4","5","6",
-  "7","8","9",
-  "*","0","#"
-];
-
-function setDisplay(text) {
-  document.getElementById('ussdDisplay').textContent = text;
-}
-
-function enableKeypad(state) {
-  const keypad = document.getElementById('keypad');
-  if(state) {
-    keypad.style.pointerEvents = "auto";
-    keypad.style.opacity = 1;
-  } else {
-    keypad.style.pointerEvents = "none";
-    keypad.style.opacity = .5;
-  }
-}
-
-// Generate keypad
-const keypad = document.getElementById('keypad');
-KEYS.forEach(k => {
-  const btn = document.createElement('button');
-  btn.className = "key";
-  btn.textContent = k;
-  btn.onclick = () => {
-    if (!codeActive) return;
-    lastText += (lastText ? "*" : "") + k;
-    sendUSSD(lastText);
-  };
-  keypad.appendChild(btn);
-});
-
-document.getElementById('callBtn').onclick = function() {
-  // Start session: random sessionId, get code
-  let ussdCode = document.getElementById('ussdCode').value.trim();
-  if (!ussdCode || !ussdCode.startsWith("*") || !ussdCode.endsWith("#")) {
-    setDisplay("Enter a valid USSD code like *384*250250# and press Call.");
-    return;
-  }
-  sessionId = "SIM" + Date.now();
-  lastText = "";
-  codeActive = true;
-  setDisplay("Connecting...");
-  enableKeypad(true);
-  sendUSSD("");
-};
-
-function sendUSSD(text) {
-  setDisplay("Loading...");
-  fetch('/api/ussd/callback', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      sessionId,
-      serviceCode: document.getElementById('ussdCode').value.trim(),
-      phoneNumber: "+254700000000", // Hardcoded/simulated number
-      text
-    })
-  }).then(r => r.text()).then(data => {
-    setDisplay(data);
-    // If USSD session ends, lock keypad again
-    if (data.startsWith('END')) {
-      codeActive = false;
-      enableKeypad(false);
-      setTimeout(() => setDisplay("Enter your USSD code and press Call."), 2000);
+    // Reset session
+    function resetSession() {
+      sessionId = null; ussdText = ""; sessionActive = false;
+      ussdReplyInput.value = "";
+      ussdScreen.textContent = "Enter your USSD code and press Call.";
+      ussdCodeInput.disabled = false; callBtn.disabled = false;
+      ussdReplyInput.disabled = true; sendBtn.disabled = true;
     }
-  }).catch(err => {
-    setDisplay("Error: " + err);
-    codeActive = false;
-    enableKeypad(false);
-  });
-}
 
-// Disable keypad at start
-enableKeypad(false);
+    // Start session
+    callBtn.onclick = async function() {
+      serviceCode = ussdCodeInput.value.trim();
+      if (!serviceCode) return alert('Enter a USSD code');
+      sessionId = "SIM" + Date.now();
+      ussdText = ""; sessionActive = true;
+      ussdCodeInput.disabled = true; callBtn.disabled = true;
+      ussdReplyInput.disabled = false; sendBtn.disabled = false;
+      ussdScreen.textContent = "Connecting...";
+      await sendUSSDRequest();
+    };
 
-</script>
+    // Send user input as next step
+    sendBtn.onclick = async function() {
+      if (!sessionActive) return;
+      const val = ussdReplyInput.value.trim();
+      if (!val) return;
+      ussdReplyInput.value = "";
+      if (ussdText) ussdText += "*" + val; else ussdText = val;
+      await sendUSSDRequest();
+    };
+
+    // USSD request
+    async function sendUSSDRequest() {
+      try {
+        const resp = await fetch("/api/ussd/callback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sessionId, serviceCode, phoneNumber, text: ussdText
+          }),
+        });
+        const data = await resp.text();
+        if (data.startsWith("END")) {
+          sessionActive = false;
+          ussdReplyInput.disabled = true; sendBtn.disabled = true;
+          ussdScreen.textContent = data.substring(4).trim();
+        } else if (data.startsWith("CON")) {
+          ussdScreen.textContent = data.substring(4).trim();
+        } else {
+          ussdScreen.textContent = data.trim();
+        }
+      } catch (e) {
+        ussdScreen.textContent = "Network error. Please try again.";
+        sessionActive = false;
+        ussdReplyInput.disabled = true; sendBtn.disabled = true;
+      }
+    }
+
+    // Enter key navigation
+    ussdReplyInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter') sendBtn.click();
+    });
+    ussdCodeInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter') callBtn.click();
+    });
+
+    // Initialize UI
+    resetSession();
+  </script>
 </body>
 </html>
