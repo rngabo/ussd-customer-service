@@ -3,61 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USSD Simulator</title>
+    <title>Enhanced USSD Simulator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
             padding: 20px;
         }
+        .phone-frame {
+            background-color: #222;
+            border-radius: 20px;
+            padding: 15px;
+            max-width: 350px;
+            margin: 0 auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .phone-screen {
+            background-color: #444;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .phone-header {
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 14px;
+            text-align: center;
+            border-bottom: 1px solid #555;
+        }
         .ussd-display {
             background-color: #333;
             color: #fff;
             font-family: monospace;
             padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
             white-space: pre-line;
             min-height: 200px;
+            margin-bottom: 0;
+            overflow-y: auto;
         }
         .control-panel {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 15px;
+            background-color: #333;
+        }
+        .key {
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .key:hover {
+            background-color: #777;
+        }
+        .key.function {
+            background-color: #28a745;
+        }
+        .key.cancel {
+            background-color: #dc3545;
+        }
+        .small-text {
+            font-size: 8px;
+            color: #aaa;
+            display: block;
+            text-align: center;
+            margin-top: 2px;
+        }
+        .log-panel {
+            margin-top: 20px;
+            background-color: #222;
+            color: #33ff33;
+            font-family: monospace;
+            padding: 10px;
+            border-radius: 5px;
+            height: 150px;
+            overflow-y: auto;
+        }
+        .network-indicator {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 12px;
+            color: #aaff33;
+        }
+        .logs-toggle {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+        }
+        .history-entry {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .history-entry:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">USSD Simulator</h1>
+        <h1 class="text-center mb-4">Enhanced USSD Simulator</h1>
         <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="ussd-display" id="ussdDisplay">
-                    Welcome to USSD Simulator.
-                    Press "Start Session" to begin.
+            <div class="col-md-6">
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="phone-header">
+                            Africa's Talking
+                            <span class="network-indicator">●●●●</span>
+                        </div>
+                        <div class="ussd-display" id="ussdDisplay">
+                            Welcome to USSD Simulator.
+                            Press "Start Session" to begin.
+                        </div>
+                        <div class="keypad">
+                            <button class="key" onclick="appendInput('1')">1<span class="small-text"></span></button>
+                            <button class="key" onclick="appendInput('2')">2<span class="small-text">ABC</span></button>
+                            <button class="key" onclick="appendInput('3')">3<span class="small-text">DEF</span></button>
+                            <button class="key" onclick="appendInput('4')">4<span class="small-text">GHI</span></button>
+                            <button class="key" onclick="appendInput('5')">5<span class="small-text">JKL</span></button>
+                            <button class="key" onclick="appendInput('6')">6<span class="small-text">MNO</span></button>
+                            <button class="key" onclick="appendInput('7')">7<span class="small-text">PQRS</span></button>
+                            <button class="key" onclick="appendInput('8')">8<span class="small-text">TUV</span></button>
+                            <button class="key" onclick="appendInput('9')">9<span class="small-text">WXYZ</span></button>
+                            <button class="key" onclick="appendInput('*')">*</button>
+                            <button class="key" onclick="appendInput('0')">0</button>
+                            <button class="key" onclick="appendInput('#')">#</button>
+                            <button class="key cancel" onclick="cancelSession()">✕</button>
+                            <button class="key function" onclick="submitInput()">✓</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-6">
                 <div class="control-panel">
+                    <h4>Configuration</h4>
                     <div class="mb-3">
                         <label for="phoneNumber" class="form-label">Phone Number:</label>
                         <input type="text" class="form-control" id="phoneNumber" value="+254700000000">
                     </div>
                     <div class="mb-3">
                         <label for="serviceCode" class="form-label">Service Code:</label>
-                        <input type="text" class="form-control" id="serviceCode" value="*384#">
+                        <input type="text" class="form-control" id="serviceCode" value="*384*250250#">
                     </div>
                     <div class="mb-3">
-                        <label for="userInput" class="form-label">User Input:</label>
-                        <input type="text" class="form-control" id="userInput">
+                        <label for="apiUrl" class="form-label">API Endpoint:</label>
+                        <input type="text" class="form-control" id="apiUrl" value="/api/ussd/callback">
+                    </div>
+                    <div class="mb-3">
+                        <label for="userInput" class="form-label">Current Input:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="userInput" readonly>
+                            <button class="btn btn-outline-secondary" type="button" onclick="clearInput()">Clear</button>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="sessionId" class="form-label">Session ID:</label>
                         <input type="text" class="form-control" id="sessionId" value="" readonly>
                     </div>
-                    <div class="d-grid gap-2">
+                    <div class="d-grid gap-2 mb-3">
                         <button id="startSessionBtn" class="btn btn-primary">Start Session</button>
-                        <button id="sendInputBtn" class="btn btn-success" disabled>Send Input</button>
                         <button id="endSessionBtn" class="btn btn-danger" disabled>End Session</button>
+                    </div>
+                    
+                    <div class="accordion" id="advancedOptions">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Session History
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#advancedOptions">
+                                <div class="accordion-body p-0">
+                                    <div id="sessionHistory" class="list-group list-group-flush">
+                                        <!-- Session history will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Debug Logs
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#advancedOptions">
+                                <div class="accordion-body">
+                                    <div class="log-panel" id="logPanel"></div>
+                                    <button class="btn btn-sm btn-outline-secondary mt-2" onclick="clearLogs()">Clear Logs</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,89 +220,332 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Session variables
+        let isSessionActive = false;
+        let sessionHistory = [];
+        
+        // DOM elements
+        const startSessionBtn = document.getElementById('startSessionBtn');
+        const endSessionBtn = document.getElementById('endSessionBtn');
+        const ussdDisplay = document.getElementById('ussdDisplay');
+        const phoneNumber = document.getElementById('phoneNumber');
+        const serviceCode = document.getElementById('serviceCode');
+        const userInput = document.getElementById('userInput');
+        const sessionId = document.getElementById('sessionId');
+        const apiUrl = document.getElementById('apiUrl');
+        const logPanel = document.getElementById('logPanel');
+        const sessionHistoryEl = document.getElementById('sessionHistory');
+        
+        // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
-            const startSessionBtn = document.getElementById('startSessionBtn');
-            const sendInputBtn = document.getElementById('sendInputBtn');
-            const endSessionBtn = document.getElementById('endSessionBtn');
-            const ussdDisplay = document.getElementById('ussdDisplay');
-            const phoneNumber = document.getElementById('phoneNumber');
-            const serviceCode = document.getElementById('serviceCode');
-            const userInput = document.getElementById('userInput');
-            const sessionId = document.getElementById('sessionId');
+            startSessionBtn.addEventListener('click', startSession);
+            endSessionBtn.addEventListener('click', endSession);
             
-            let currentText = '';
-            
-            startSessionBtn.addEventListener('click', function() {
-                // Generate a session ID
-                sessionId.value = 'SIM_' + Date.now();
-                currentText = '';
-                
-                // Send request to start session
-                sendUSSDRequest(currentText);
-                
-                // Enable/disable buttons
-                startSessionBtn.disabled = true;
-                sendInputBtn.disabled = false;
-                endSessionBtn.disabled = false;
-            });
-            
-            sendInputBtn.addEventListener('click', function() {
-                // Add user input to the text
-                if (currentText === '') {
-                    currentText = userInput.value;
-                } else {
-                    currentText += '*' + userInput.value;
-                }
-                
-                // Send request with the updated text
-                sendUSSDRequest(currentText);
-                
-                // Clear the user input field
-                userInput.value = '';
-            });
-            
-            endSessionBtn.addEventListener('click', function() {
-                // Reset everything
-                ussdDisplay.textContent = 'Session ended. Press "Start Session" to begin a new session.';
-                sessionId.value = '';
-                currentText = '';
-                userInput.value = '';
-                
-                // Enable/disable buttons
-                startSessionBtn.disabled = false;
-                sendInputBtn.disabled = true;
-                endSessionBtn.disabled = true;
-            });
-            
-            function sendUSSDRequest(text) {
-                fetch('/ussd-simulate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        sessionId: sessionId.value,
-                        serviceCode: serviceCode.value,
-                        phoneNumber: phoneNumber.value,
-                        text: text
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Display the response
-                    ussdDisplay.textContent = data.response;
-                    
-                    // Check if the session should end
-                    if (data.response.startsWith('END')) {
-                        endSessionBtn.click();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    ussdDisplay.textContent = 'Error: ' + error.message;
-                });
-            }
+            // Load session history from localStorage
+            loadSessionHistory();
         });
+        
+        function log(message) {
+            const timestamp = new Date().toISOString().split('T')[1].slice(0, 8);
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `<span style="color: #aaa;">[${timestamp}]</span> ${message}`;
+            logPanel.appendChild(logEntry);
+            logPanel.scrollTop = logPanel.scrollHeight;
+        }
+        
+        function clearLogs() {
+            logPanel.innerHTML = '';
+        }
+        
+        function startSession() {
+            // Generate a session ID
+            sessionId.value = 'SIM_' + Date.now();
+            
+            // Initialize session
+            isSessionActive = true;
+            userInput.value = '';
+            
+            // Update UI
+            startSessionBtn.disabled = true;
+            endSessionBtn.disabled = false;
+            
+            // Simulate network connection
+            simulateNetworkActivity();
+            
+            // Make initial USSD request
+            sendUSSDRequest('');
+            
+            log(`Session started with ID: ${sessionId.value}`);
+        }
+        
+        function endSession() {
+            // End the session
+            isSessionActive = false;
+            
+            // Update UI
+            ussdDisplay.textContent = 'Session ended. Press "Start Session" to begin a new session.';
+            startSessionBtn.disabled = false;
+            endSessionBtn.disabled = true;
+            userInput.value = '';
+            
+            log(`Session ${sessionId.value} ended`);
+        }
+        
+        function appendInput(value) {
+            if (!isSessionActive) {
+                showToast('Please start a session first');
+                return;
+            }
+            
+            userInput.value += value;
+        }
+        
+        function clearInput() {
+            userInput.value = '';
+        }
+        
+        function submitInput() {
+            if (!isSessionActive) {
+                showToast('Please start a session first');
+                return;
+            }
+            
+            const input = userInput.value;
+            if (!input) {
+                showToast('Please enter a value');
+                return;
+            }
+            
+            log(`Submitting input: ${input}`);
+            
+            // Get the current text value and append the new input
+            const currentText = sessionHistory.length > 0 ? 
+                sessionHistory[sessionHistory.length - 1].text : '';
+            
+            const newText = currentText ? `${currentText}*${input}` : input;
+            
+            // Send the USSD request
+            sendUSSDRequest(newText);
+            
+            // Clear the input field
+            userInput.value = '';
+        }
+        
+        function cancelSession() {
+            if (isSessionActive) {
+                endSession();
+            }
+        }
+        
+        function simulateNetworkActivity() {
+            const networkIndicator = document.querySelector('.network-indicator');
+            networkIndicator.style.color = '#ffaa33';
+            
+            setTimeout(() => {
+                networkIndicator.style.color = '#aaff33';
+            }, 500);
+        }
+        
+        function sendUSSDRequest(text) {
+            simulateNetworkActivity();
+            
+            const requestData = {
+                sessionId: sessionId.value,
+                serviceCode: serviceCode.value,
+                phoneNumber: phoneNumber.value,
+                text: text
+            };
+            
+            log(`Sending USSD request: ${JSON.stringify(requestData)}`);
+            
+            // Make the USSD request
+            fetch(apiUrl.value, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Display the response
+                ussdDisplay.textContent = data;
+                
+                // Add to session history
+                addToSessionHistory(text, data);
+                
+                log(`Received response: ${data}`);
+                
+                // Check if the session should end
+                if (data.startsWith('END')) {
+                    endSession();
+                }
+            })
+            .catch(error => {
+                log(`Error: ${error.message}`);
+                ussdDisplay.textContent = `Error: ${error.message}\nPlease try again or check your endpoint configuration.`;
+                showToast('Request failed. See logs for details.');
+            });
+        }
+        
+        function addToSessionHistory(text, response) {
+            const entry = {
+                timestamp: new Date().toISOString(),
+                sessionId: sessionId.value,
+                text: text,
+                response: response
+            };
+            
+            sessionHistory.push(entry);
+            
+            // Update session history in localStorage
+            if (sessionHistory.length > 20) {
+                sessionHistory = sessionHistory.slice(-20);
+            }
+            
+            localStorage.setItem('ussdSessionHistory', JSON.stringify(sessionHistory));
+            
+            // Update the UI
+            updateSessionHistoryUI();
+        }
+        
+        function loadSessionHistory() {
+            const savedHistory = localStorage.getItem('ussdSessionHistory');
+            if (savedHistory) {
+                sessionHistory = JSON.parse(savedHistory);
+                updateSessionHistoryUI();
+            }
+        }
+        
+        function updateSessionHistoryUI() {
+            sessionHistoryEl.innerHTML = '';
+            
+            if (sessionHistory.length === 0) {
+                const emptyItem = document.createElement('div');
+                emptyItem.className = 'list-group-item text-muted';
+                emptyItem.textContent = 'No session history';
+                sessionHistoryEl.appendChild(emptyItem);
+                return;
+            }
+            
+            // Group by session ID
+            const sessions = {};
+            sessionHistory.forEach(entry => {
+                if (!sessions[entry.sessionId]) {
+                    sessions[entry.sessionId] = [];
+                }
+                sessions[entry.sessionId].push(entry);
+            });
+            
+            // Add to UI
+            Object.keys(sessions).reverse().forEach(sid => {
+                const sessionItem = document.createElement('div');
+                sessionItem.className = 'history-entry';
+                
+                const timestamp = new Date(sessions[sid][0].timestamp);
+                const timeStr = timestamp.toLocaleTimeString();
+                
+                sessionItem.innerHTML = `
+                    <div class="d-flex justify-content-between">
+                        <strong>Session ${sid.substring(0, 8)}...</strong>
+                        <small>${timeStr}</small>
+                    </div>
+                    <small class="text-muted">${sessions[sid].length} interactions</small>
+                `;
+                
+                sessionItem.addEventListener('click', () => {
+                    // Display session details
+                    showSessionDetails(sessions[sid]);
+                });
+                
+                sessionHistoryEl.appendChild(sessionItem);
+            });
+        }
+        
+        function showSessionDetails(entries) {
+            // Create modal to show details
+            const modalHtml = `
+                <div class="modal fade" id="sessionDetailsModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Session Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Text Input</th>
+                                                <th>Response</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${entries.map((entry, idx) => `
+                                                <tr>
+                                                    <td>${idx + 1}</td>
+                                                    <td><code>${entry.text || '(initial)'}</code></td>
+                                                    <td><pre class="mb-0" style="white-space: pre-wrap;">${entry.response}</pre></td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add modal to document
+            const modalContainer = document.createElement('div');
+            modalContainer.innerHTML = modalHtml;
+            document.body.appendChild(modalContainer);
+            
+            // Show the modal
+            const modal = new bootstrap.Modal(document.getElementById('sessionDetailsModal'));
+            modal.show();
+            
+            // Remove modal when hidden
+            document.getElementById('sessionDetailsModal').addEventListener('hidden.bs.modal', function () {
+                document.body.removeChild(modalContainer);
+            });
+        }
+        
+        function showToast(message) {
+            // Create a simple toast notification
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed bottom-0 end-0 p-3';
+            toast.style.zIndex = '11';
+            toast.innerHTML = `
+                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">USSD Simulator</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
